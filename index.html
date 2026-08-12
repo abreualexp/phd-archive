@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alex Abreu</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons/css/academicons.min.css">
+
+<link rel="shortcut icon" href="img/favicon.png" />
+<style>
+  :root {
+    --ink: #0f172a;       /* Deep slate navy */
+    --paper: #f8fafc;     /* Crisp slate background */
+    --cream: #e2e8f0;     /* Soft slate grey for cards */
+    --rust: #1e3a8a;      /* Primary: Royal navy */
+    --gold: #9f1239;      /* Accent: Deep crimson */
+    --muted: #64748b;     /* Slate grey body/subtext */
+    --rule: #cbd5e1;      /* Cool border line */
+    --accent: #FAB70C;    /* Accent: Warm amber */
+    /* --card:  */
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: .5;
+  }
+
+  /* ── SIDEBAR NAV ── */
+  nav {
+    position: fixed;
+    left: 0; top: 0; bottom: 0;
+    width: 220px;
+    background: var(--ink);
+    color: var(--paper);
+    display: flex;
+    flex-direction: column;
+    padding: 3rem 2rem;
+    z-index: 100;
+  }
+
+  nav .monogram {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.2rem;
+    letter-spacing: .2em;
+    color: var(--cream);
+    text-transform: uppercase;
+    margin-bottom: 3rem;
+  }
+
+  nav ul { list-style: none; }
+
+  nav ul li { margin-bottom: .6rem; }
+
+  nav ul li a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--rule);
+    text-decoration: none;
+    transition: color .2s;
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+  }
+
+  nav ul li a::before {
+    content: '—';
+    opacity: 0;
+    transition: opacity .2s, transform .2s;
+    transform: translateX(-4px);
+    color: var(--accent);
+  }
+
+  nav ul li a:hover { color: var(--paper); }
+  nav ul li a:hover::before { opacity: 1; transform: translateX(0); }
+
+  nav .contact-links {
+    margin-top: auto;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: .1em;
+  }
+
+  nav .contact-links a {
+    color: var(--muted);
+    text-decoration: none;
+    display: block;
+    margin-bottom: .4rem;
+    transition: color .2s;
+  }
+
+  nav .contact-links a:hover { color: var(--gold); }
+
+  /* ── MAIN CONTENT ── */
+  main {
+    margin-left: 220px;
+    min-height: 100vh;
+  }
+
+  section {
+    padding: 6rem 5rem;
+    border-bottom: 1px solid var(--rule);
+    opacity: 0;
+    transform: translateY(24px);
+    animation: fadeUp .7s forwards;
+  }
+
+  section:nth-child(1) { animation-delay: .1s; }
+  section:nth-child(2) { animation-delay: .2s; }
+  section:nth-child(3) { animation-delay: .3s; }
+  section:nth-child(4) { animation-delay: .4s; }
+  section:nth-child(5) { animation-delay: .5s; }
+  section:nth-child(6) { animation-delay: .6s; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 80px;
+    height: 1px;
+    background: var(--rust);
+    opacity: .5;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    padding-top: 8rem;
+    padding-bottom: 7rem;
+    position: relative;
+  }
+
+  #hero h1 {
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -.01em;
+    max-width: 700px;
+    margin-bottom: 1.5rem;
+  }
+
+  #hero h1 em {
+    font-style: italic;
+    color: var(--rust);
+  }
+
+  #hero .tagline {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--muted);
+    letter-spacing: .1em;
+    margin-bottom: 1rem;
+  }
+
+  #hero p.bio {
+    max-width: 560px;
+    color: var(--ink);
+    font-size: 1.05rem;
+    margin-top: 2rem;
+    line-height: 1.8;
+  }
+
+  .hero-pill {
+    display: inline-block;
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: .3em .8em;
+    margin-right: .5rem;
+    margin-top: .8rem;
+  }
+
+  /* ── EDUCATION ── */
+  .edu-entry {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 0 2.5rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .edu-entry:last-child { border-bottom: 1px solid var(--rule); }
+
+  .edu-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    padding-top: .25rem;
+    letter-spacing: .05em;
+  }
+
+  .edu-body h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: .2rem;
+  }
+
+  .edu-body .institution {
+    font-style: italic;
+    color: var(--muted);
+    margin-bottom: .5rem;
+  }
+
+  .edu-body p {
+    font-size: .95rem;
+    color: var(--muted);
+  }
+
+  /* ── RESEARCH / INTERESTS ── */
+  .interests-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-top: .5rem;
+  }
+
+  .interest-card {
+    background: var(--rule);
+    border: 1px solid var(--rust);
+    padding: 1.8rem;
+    position: relative;
+    transition: border-color .2s, transform .2s;
+  }
+
+  .interest-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+  }
+
+  .interest-card .num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--rule);
+    margin-bottom: 1rem;
+  }
+
+  .interest-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: .5rem;
+  }
+
+  .interest-card p {
+    font-size: .9rem;
+    color: var(--muted);
+  }
+
+  /* ── PUBLICATIONS ── */
+  .pub-entry {
+    padding: 1.8rem 0;
+    border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 0 2.5rem;
+  }
+
+  .pub-entry:last-child { border-bottom: 1px solid var(--rule); }
+
+  .pub-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    padding-top: .3rem;
+  }
+
+  .pub-body .pub-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: .3rem;
+    line-height: 1.4;
+  }
+
+  .pub-body .pub-venue {
+    font-style: italic;
+    color: var(--muted);
+    font-size: .9rem;
+    margin-bottom: .3rem;
+  }
+
+  .pub-body .pub-authors {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: .04em;
+  }
+
+  .pub-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: .1em;
+    /* text-transform: uppercase; */
+    padding: .15em .7em;
+    border-radius: 2px;
+    margin-left: .6rem;
+    vertical-align: middle;
+  }
+
+  .pub-tag.journal { background: #d4e8d4; color: #2a5a2a; }
+  .pub-tag.conference { background: #d4dff5; color: #1a2e6a; }
+  .pub-tag.preprint { background: var(--accent); color: var(--ink); }
+
+  /* ── EXPERIENCE ── */
+  .exp-entry {
+    padding: 2rem 0;
+    border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 0 2.5rem;
+  }
+
+  .exp-entry:last-child { border-bottom: 1px solid var(--rule); }
+
+  .exp-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    line-height: 1.6;
+    padding-top: .2rem;
+  }
+
+  .exp-body h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: .2rem; }
+  .exp-body .org { font-style: italic; color: var(--muted); margin-bottom: .6rem; }
+  .exp-body p { font-size: .95rem; color: var(--muted); }
+
+  /* ── AWARDS ── */
+  .awards-list { list-style: none; }
+
+  .awards-list li {
+    padding: 1.2rem 0;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 2rem;
+  }
+
+  .awards-list li:last-child { border-bottom: 1px solid var(--rule); }
+
+  .award-name { font-size: 1rem; }
+
+  .award-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    border-bottom: none;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 1rem;
+  }
+
+  .contact-grid p {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-grid a {
+    color: var(--rust);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color .2s;
+  }
+
+  .contact-grid a:hover { border-color: var(--rust); }
+
+  .contact-info dt {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 1.2rem;
+    margin-bottom: .25rem;
+  }
+
+  .contact-info dd { font-size: 1rem; }
+  .contact-info dd a { color: var(--ink); border-bottom: 1px solid var(--rule); }
+  .contact-info dd a:hover { color: var(--rust); border-color: var(--rust); }
+
+  /* ── FOOTER ── */
+  footer {
+    margin-left: 220px;
+    padding: 2rem 5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: .08em;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { display: none; }
+    main, footer { margin-left: 0; }
+    section { padding: 4rem 2rem; }
+    .edu-entry, .pub-entry, .exp-entry { grid-template-columns: 1fr; gap: .4rem; }
+    .contact-grid { grid-template-columns: 1fr; }
+    footer { padding: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── SIDEBAR ── -->
+<nav>
+  <em>Prof. M.Sc.</em>
+  <div class="monogram">Alex Abreu</div>
+  <ul>
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#awards">Awards</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <!-- <li><a href="#contact">Contact</a></li> -->
+  </ul>
+</nav>
+
+<!-- ── MAIN ── -->
+<main>
+
+  <!-- HERO -->
+  <section id="hero">
+    <!-- <div class="section-label">Academic Portfolio</div> -->
+    <h1>Alex Paranahyba <br> <em>de Abreu</em></h1>
+    <p class="tagline">Optimisation &#8226; Production &#8226; Logistics </p>
+    <!-- <div>
+        <span class="hero-pill">Assistant Professor</span>
+        <span class="hero-pill">Universidade Federal de Goiás</span>
+        <span class="hero-pill">Since. 2025</span>
+    </div> -->
+    <!-- <br> -->
+    <p class="bio">
+        Alex Abreu is an Assistant Professor of Operational Research at the Faculty of Sciences and Technology (FCT) of the
+        Federal University of Goiás (UFG). He holds a Master's degree in Production Engineering from the Federal University of
+        São Carlos (UFSCar) and is currently pursuing a PhD from the same institution. He completed a sandwich master's degree
+        at the School of Management at the University of Bath (UK). He holds a bachelor's degree in Production Engineering from
+        UFG. Alex has experience in Operational Research with focus on vehicle routing, production planning and scheduling,
+        optimization under uncertainty and exact methods.
+    </p>
+    <!-- <br> -->
+    <div class="contact-grid">
+      <!-- <dl class="contact-info"> -->
+        <span class="contact-info">
+        <dt>Email</dt>
+        <dd><a href="mailto:alexabreu@ufg.br">alexabreu@ufg.br</a></dd>
+        </span>
+        <span class="contact-info">
+        <dt>Profiles</dt>
+        <dd>
+            <!-- <a href="mailto:abreualexp@gmail.com">
+              <i class="fa fa-envelope"></i></a> &nbsp;·&nbsp; -->
+
+            <a target="_blank" href="https://www.linkedin.com/in/abreu-alex/">
+              <i class="fa-brands fa-linkedin"></i></a> &nbsp;·&nbsp;
+
+            <a target="_blank" href="https://scholar.google.com/citations?user=IuZ2wVQAAAAJ&hl">
+              <i class="fa-brands fa-google-scholar"></i></a> &nbsp;·&nbsp;
+
+            <a target="_blank" href="http://lattes.cnpq.br/0273240076049563">
+              <i class="ai ai-lattes"></i></a> &nbsp;·&nbsp;
+
+            <a target="_blank" href="https://www.researchgate.net/profile/Alex-Abreu-3">
+              <i class="ai ai-researchgate"></i></a> &nbsp;·&nbsp;
+
+            <a target="_blank" href="https://orcid.org/0000-0002-8338-7452">
+              <i class="ai ai-orcid"></i></a> &nbsp;·&nbsp;
+
+            <a target="_blank" href="https://github.com/abreualexp">
+              <i class="fa-brands fa-github"></i></a> &nbsp;·&nbsp;
+
+            <a target="_blank" href="https://www.youtube.com/@alex_abreu">
+              <i class="fa-brands fa-youtube"></i></a>
+        </dd>
+        </span>
+      <!-- </dl> -->
+      </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-label">Experience</div>
+
+    <div class="exp-entry">
+      <div class="exp-period">2026 - Present</div>
+      <div class="exp-body">
+        <h3>Assistant Professor of Operational Research</h3>
+        <p class="org">Universidade Federal de Goiás, Faculdade de Ciências e Tecnologia</p>
+        <!-- <p>Teaching graduate seminars in semantics and pragmatics; leading the Computational Language Lab; supervising 6 doctoral students.</p> -->
+      </div>
+    </div>
+
+    <div class="exp-entry">
+      <div class="exp-period">2023 - 2024</div>
+      <div class="exp-body">
+        <h3>Visiting Researcher</h3>
+        <p class="org">University of Bath, School of Management</p>
+        <!-- <p>Collaboration on cross-linguistic acquisition data with the Language Development Department.</p> -->
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section-label">Education</div>
+
+    <div class="edu-entry">
+      <div class="edu-year">2025 - Present</div>
+      <div class="edu-body">
+        <h3>Doctor's degree &#8226; Production Engineering</h3>
+        <p class="institution">Universidade Federal de São Carlos, São Carlos-SP, Brazil.</p>
+        <p>
+          <!-- Thesis: <em>TBD</em> <br> -->
+          Advisor: Prof. Dr. Reinaldo Morabito. &#8226; Co-advisor: Prof. Dr. Pedro Munari.
+        </p>
+      </div>
+    </div>
+
+    <div class="edu-entry">
+      <div class="edu-year">2022 - 2025</div>
+      <div class="edu-body">
+        <h3>Master's degree &#8226; Production Engineering</h3>
+        <p class="institution">Universidade Federal de São Carlos, São Carlos-SP, Brazil.</p>
+        <p>
+          Thesis: <em>The robust pickup and delivery problem with time windows</em> <br>
+          Advisor: Prof. Dr. Pedro Munari. &#8226; Co-advisor: Prof. Dr. Luciano Costa (UFPB)
+        </p>
+      </div>
+    </div>
+
+    <div class="edu-entry">
+      <div class="edu-year">2017 - 2022</div>
+      <div class="edu-body">
+        <h3>Bachelor's degree &#8226; Production Engineering</h3>
+        <p class="institution">Universidade Federal de Goiás, Aparecida de Goiânia-GO, Brazil.</p>
+        <p>
+          Final project: <em></em> <br>
+          Advisor: Prof. Dr. Hélio Yochihiro Fuchigami.
+        </p>
+      </div>
+    </div>
+  </section>
+
+    <!-- AWARDS -->
+  <section id="awards">
+    <div class="section-label">Awards</div>
+    <ul class="awards-list">
+      <!-- <li>
+        <span class="award-name">Best Master's Dissertation Award.
+          <br><i>Brazilian OR Society - SOBRAPO</i>
+        </span>
+        <span class="award-meta">2026</span>
+      </li> -->
+      <li>
+        <span class="award-name">Best Technological Product Award presented at the 10th EPPGEP.
+          <br><i>National Association of Graduate Programs and Research in Production Engineering (ANPEPRO).</i></span>
+        <span class="award-meta">2025</span>
+      </li>
+      <li>
+        <span class="award-name">Master's Thesis Nominated for the ABEPRO Award 2025.
+          <br><i>Graduate Program in Production Engineering (PPGEP-UFSCar).</i></span>
+        <span class="award-meta">2025</span>
+      </li>
+      <li>
+        <span class="award-name">Undergraduate Thesis Nominated for the ABEPRO Award 2022.
+          <br><i>Faculty of Science and Technology (FCT-UFG).</i></span>
+        <span class="award-meta">2022</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- RESEARCH INTERESTS -->
+  <section id="research">
+    <div class="section-label">Research Interests</div>
+    <div class="interests-grid">
+      <div class="interest-card">
+        <!-- <div class="num">01</div> -->
+        <h3>Routing problems</h3>
+        <!-- <p></p> -->
+      </div>
+      <div class="interest-card">
+        <!-- <div class="num">02</div> -->
+        <h3>Scheduling problems</h3>
+        <!-- <p></p> -->
+      </div>
+      <div class="interest-card">
+        <!-- <div class="num">03</div> -->
+        <h3>Lot-sizing problems</h3>
+        <!-- <p></p> -->
+      </div>
+      <div class="interest-card">
+        <!-- <div class="num">04</div> -->
+        <h3>Optimization under uncertainty</h3>
+        <!-- <p></p> -->
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section id="publications">
+    <div class="section-label">Publications</div>
+
+    <div class="pub-entry">
+      <div class="pub-year">2026</div>
+      <div class="pub-body">
+        <p class="pub-title">The robust pickup and delivery problem with time windows
+          <a target="_blank" href="https://doi.org/10.1016/j.ejor.2026.03.031" target="_blank"><span class="pub-tag preprint">doi</span></a>
+        </p>
+        <p class="pub-authors"><u>Abreu, A.</u>, Battarra, M., Costa, L. & Munari, P.</p>
+        <p class="pub-venue">European Journal of Operational Research</p>
+      </div>
+    </div>
+
+    <div class="pub-entry">
+      <div class="pub-year">2026</div>
+      <div class="pub-body">
+        <p class="pub-title">Optimising manufacturing schedules with tailored metrics to reduce unproductive times
+          <a target="_blank" href="http://dx.doi.org/10.1590/0103-6513.20250004" target="_blank"><span class="pub-tag preprint">doi</span></a>
+        </p>
+        <p class="pub-authors"><u>Abreu, A.</u> & Fuchigami, H.</p>
+        <p class="pub-venue">Production</p>
+      </div>
+    </div>
+
+    <div class="pub-entry">
+      <div class="pub-year">2025</div>
+      <div class="pub-body">
+        <p class="pub-title">Performance investigation of metaheuristics for the just-in-time single-machine under different time windows and setup restrictions
+          <a target="_blank" href="http://doi.org/10.5267/j.ijiec.2025.3.004" target="_blank"><span class="pub-tag preprint">doi</span></a>
+        </p>
+        <p class="pub-authors">de Freitas M. G., <u>Abreu, A.</u>, Branco, F. J. C., Fuchigami, H. Y. & de Mello, R. T.</p>
+        <p class="pub-venue">International Journal of Industrial Engineering Computations</p>
+      </div>
+    </div>
+
+    <div class="pub-entry">
+      <div class="pub-year">2024</div>
+      <div class="pub-body">
+        <p class="pub-title">Innovative optimization algorithms for large-sized industrial scheduling problems
+          <a target="_blank" href="https://doi.org/10.1590/1678-4324-2024240084" target="_blank"><span class="pub-tag preprint">doi</span></a>
+        </p>
+        <p class="pub-authors">Fuchigami, H. Y. & <u>Abreu, A. P.</u></p>
+        <p class="pub-venue">Brazilian Archives of Biology and Technology</p>
+      </div>
+    </div>
+
+    <div class="pub-entry">
+      <div class="pub-year">2022</div>
+      <div class="pub-body">
+        <p class="pub-title">An efficiency and robustness analysis of warm-start mathematical models for idle and waiting times optimization in the flow shop
+          <a target="_blank" href="https://doi.org/10.1016/j.cie.2022.107976" target="_blank"><span class="pub-tag preprint">doi</span></a>
+        </p>
+        <p class="pub-authors"><u>Abreu, A. P.</u>, & Fuchigami, H. Y.</p>
+        <p class="pub-venue">Computers & Industrial Engineering</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <!-- <section id="contact">
+    <div class="section-label">Get in Touch</div>
+    <div class="contact-grid">
+      <dl class="contact-info">
+        <dt>Email</dt>
+        <dd><a href="mailto:alexabreu@ufg.br">alexabreu@ufg.br</a></dd>
+        <dt>Profiles</dt>
+        <dd>
+            <a href="mailto:abreualexp@gmail.com">
+              <i class="fa fa-envelope"></i></a> &nbsp;·&nbsp;
+
+            <a target="_blank" href="https://www.linkedin.com/in/abreu-alex/">
+              <i class="fa-brands fa-linkedin"></i></a> &nbsp;·&nbsp;
+
+            <a target="_blank" href="https://scholar.google.com/citations?user=IuZ2wVQAAAAJ&hl">
+              <i class="fa-brands fa-google-scholar"></i></a> &nbsp;·&nbsp;
+
+            <a target="_blank" href="http://lattes.cnpq.br/0273240076049563">
+              <i class="ai ai-lattes"></i></a> &nbsp;·&nbsp;
+
+            <a target="_blank" href="https://www.researchgate.net/profile/Alex-Abreu-3">
+              <i class="ai ai-researchgate"></i></a> &nbsp;·&nbsp;
+
+            <a target="_blank" href="https://orcid.org/0000-0002-8338-7452">
+              <i class="ai ai-orcid"></i></a> &nbsp;·&nbsp;
+
+            <a target="_blank" href="https://github.com/abreualexp">
+              <i class="fa-brands fa-github"></i></a> &nbsp;·&nbsp;
+
+            <a target="_blank" href="https://www.youtube.com/@alex_abreu">
+              <i class="fa-brands fa-youtube"></i></a>
+        </dd>
+      </dl>
+      </div>
+  </section> -->
+
+</main>
+
+<footer>
+  <span>Alex Paranahyba de Abreu</span>
+  <span>Updated August 2026</span>
+</footer>
+
+</body>
+</html>
